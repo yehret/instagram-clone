@@ -1,8 +1,23 @@
 import { Box, Button, Flex, Image, Input, Text, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthForm = () => {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
+  const [inputs, setInputs] = useState({
+    email: '',
+    password: '',
+    confrimPassword: '',
+  });
+  const handleAuth = () => {
+    if (!inputs.email || !inputs.password) {
+      alert('Please fill all required fields');
+      return;
+    }
+
+    navigate('/');
+  };
 
   return (
     <>
@@ -10,11 +25,31 @@ const AuthForm = () => {
       <Box border={'1px solid gray'} borderRadius={4} padding={5}>
         <VStack spacing={4}>
           <Image src="/logo.png" h={24} cursor={'pointer'} alt="Instagram" />
-          <Input placeholder="Email" type="email" fontSize={14} />
-          <Input placeholder="Password" type="password" fontSize={14} />
-          {!isLogin ? <Input placeholder="Confirm Password" type="password" fontSize={14} /> : null}
+          <Input
+            placeholder="Email"
+            type="email"
+            fontSize={14}
+            value={inputs.email}
+            onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
+          />
+          <Input
+            placeholder="Password"
+            type="password"
+            fontSize={14}
+            value={inputs.password}
+            onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
+          />
+          {!isLogin ? (
+            <Input
+              placeholder="Confirm Password"
+              type="password"
+              fontSize={14}
+              value={inputs.confrimPassword}
+              onChange={(e) => setInputs({ ...inputs, confrimPassword: e.target.value })}
+            />
+          ) : null}
 
-          <Button w={'full'} colorScheme="blue" size={'sm'} fontSize={14}>
+          <Button w={'full'} colorScheme="blue" size={'sm'} fontSize={14} onClick={handleAuth}>
             {isLogin ? 'Log in' : 'Sign up'}
           </Button>
           {/* ---------- OR ---------- */}
