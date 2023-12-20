@@ -1,6 +1,4 @@
-import React from 'react';
-
-export const HomePage = () => {
+const HomePage = () => {
   return <div>HomePage</div>;
 };
 
