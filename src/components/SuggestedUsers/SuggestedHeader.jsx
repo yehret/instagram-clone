@@ -5,8 +5,8 @@ const SuggestedHeader = () => {
   return (
     <Flex alignItems={'center'} justifyContent={'space-between'} w={'full'}>
       <Flex alignItems={'center'} gap={2}>
-        <Avatar name="serge_the_frenzied" size={'md'} src="/profilepic.png" />
-        <Text fontSize={12} fontWeight={'bold'}>
+        <Avatar cursor={'pointer'} name="serge_the_frenzied" size={'md'} src="/profilepic.png" />
+        <Text cursor={'pointer'} fontSize={12} fontWeight={'bold'}>
           serge_the_frenzied
         </Text>
       </Flex>
