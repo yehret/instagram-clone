@@ -94,6 +94,8 @@ const Sidebar = () => {
             </Tooltip>
           ))}
         </Flex>
+
+        {/* log out */}
         <Tooltip
           hasArrow
           label={'Log out'}
