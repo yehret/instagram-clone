@@ -4,16 +4,16 @@ import useAuthStore from '../../store/authStore';
 import { Link } from 'react-router-dom';
 
 const SuggestedHeader = () => {
-  const { handleLogout, isLoggingOut } = useLogout;
+  const { handleLogout, isLoggingOut } = useLogout();
   const authUser = useAuthStore((state) => state.user);
 
   return (
     <Flex alignItems={'center'} justifyContent={'space-between'} w={'full'}>
       <Flex alignItems={'center'} gap={2}>
-        <Link to={`{authuser.username}`}>
+        <Link to={`${authUser.username}`}>
           <Avatar cursor={'pointer'} size={'md'} src={authUser.profilePicURL} />
         </Link>
-        <Link to={`{authuser.username}`}>
+        <Link to={`${authUser.username}`}>
           <Text cursor={'pointer'} fontSize={12} fontWeight={'bold'}>
             {authUser.username}
           </Text>
