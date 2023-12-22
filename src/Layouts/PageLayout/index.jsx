@@ -37,7 +37,7 @@ export default PageLayout;
 
 const PageLayoutSpinner = () => {
   return (
-    <Flex flexDir="column" h="100vh" alignItems="center" justifyContent="center">
+    <Flex flexDirection="column" h="100vh" alignItems="center" justifyContent="center">
       <Spinner size="xl" />
     </Flex>
   );
