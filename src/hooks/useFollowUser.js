@@ -9,7 +9,7 @@ const useFollowUser = (userId) => {
    const [isUpdating, setIsUpdating] = useState(false)
    const [isFollowing, setIsFollowing] = useState(false)
    const authUser = useAuthStore(state => state.user)
-   const setAuthUser = useAuthStore(state => state.setAuthUser)
+   const setAuthUser = useAuthStore(state => state.setUser)
    const {userProfile, setUserProfile}  = useUserProfileStore()
    const showToast = useShowToast()
 
