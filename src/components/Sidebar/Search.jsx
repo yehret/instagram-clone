@@ -1,7 +1,23 @@
-import { Box, Flex, Tooltip } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Tooltip,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { SearchLogo } from '../../assets/constants';
 
 const Search = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Tooltip
@@ -18,11 +34,34 @@ const Search = () => {
           borderRadius={6}
           p={2}
           w={{ base: 10, md: 'full' }}
-          justifyContent={{ base: 'center', md: 'flex-start' }}>
+          justifyContent={{ base: 'center', md: 'flex-start' }}
+          onClick={onOpen}>
           <SearchLogo />
           <Box display={{ base: 'none', md: 'block' }}>Search</Box>
         </Flex>
       </Tooltip>
+
+      <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInLeft">
+        <ModalOverlay />
+        <ModalContent bg={'black'} border={'1px solid gray'} maxW={'400px'}>
+          <ModalHeader>Search user</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <form>
+              <FormControl>
+                <FormLabel>Username</FormLabel>
+                <Input placeholder="asaprogrammer" />
+              </FormControl>
+
+              <Flex w={'full'} justifyContent={'flex-end'}>
+                <Button type="submit" ml={'auto'} size={'sm'} my={4}>
+                  Search
+                </Button>
+              </Flex>
+            </form>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
