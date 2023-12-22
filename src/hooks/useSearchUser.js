@@ -4,12 +4,12 @@ import { collection, getDocs, query, where } from "firebase/firestore"
 import { firestore } from "../firebase/firebase"
 
 const useSearchUser = () => {
-   const [isLoading, setIsLoading] = useState(true)
+   const [isLoading, setIsLoading] = useState(false)
    const [user, setUser] = useState(null)
    const showToast = useShowToast()
 
    const getUserProfile = async (username) => {
-
+      setIsLoading(true)
       try {
          const q = query(collection(firestore, 'users'), where("username", "==", username))
       
