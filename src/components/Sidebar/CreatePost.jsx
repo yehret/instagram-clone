@@ -20,12 +20,28 @@ import { CreatePostLogo } from '../../assets/constants';
 import { BsFillImageFill } from 'react-icons/bs';
 import { useRef, useState } from 'react';
 import usePreviewImg from '../../hooks/usePreviewImg';
+import useCreatePost from '../../hooks/useCreatePost';
+import useShowToast from '../../hooks/useShowToast';
 
 const CreatePost = () => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const [caption, setCaption] = useState('');
   const imageRef = useRef(null);
   const { selectedFile, handleImageChange, setSelectedFile } = usePreviewImg();
+  const { isLoading, handleCreatePost } = useCreatePost();
+
+  const showToast = useShowToast();
+
+  const handlePostCreation = async () => {
+    try {
+      await handleCreatePost(selectedFile, caption);
+      onClose();
+      setCaption('');
+      setSelectedFile(null);
+    } catch (error) {
+      showToast('Error', error.message, 'error');
+    }
+  };
 
   return (
     <>
@@ -85,7 +101,9 @@ const CreatePost = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button mr={3}>Post</Button>
+            <Button onClick={handlePostCreation} isLoading={isLoading} mr={3}>
+              Post
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
