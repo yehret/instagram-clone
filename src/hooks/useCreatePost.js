@@ -17,6 +17,7 @@ const useCreatePost = () => {
    // const {pathname} = useLocation()
 
    const handleCreatePost = async (selectedFile, caption) => {
+      if(isLoading) return
       if(!selectedFile) throw new Error('Please select a file')
       setIsLoading(true)
 
