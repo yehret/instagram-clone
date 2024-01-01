@@ -152,28 +152,13 @@ const ProfilePost = ({ post }) => {
                 </Flex>
                 <Divider my={4} bg={'gray.500'} />
                 <VStack w={'full'} alignItems={'start'} maxH={'350px'} overflowY={'auto'}>
-                  <Comment
-                    createdAt="1d ago"
-                    username="serge"
-                    profilePic="/profilepic.png"
-                    text="What a dumb comment :D"
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="michaeljackson"
-                    profilePic="/profilepic.png"
-                    text="Eeehaa"
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="ryan_gosling"
-                    profilePic="/profilepic.png"
-                    text="I drive"
-                  />
+                  {post.comments.map((comment) => (
+                    <Comment key={comment.createdAt} comment={comment} />
+                  ))}
                 </VStack>
                 <Divider my={4} bg={'gray.800'} />
 
-                <PostFooter isProfilePage={true} />
+                <PostFooter isProfilePage={true} post={post} />
               </Flex>
             </Flex>
           </ModalBody>
