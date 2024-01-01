@@ -36,7 +36,7 @@ const ProfilePost = ({ post }) => {
   const showToast = useShowToast();
   const [isDeleting, setIsDeleting] = useState(false);
   const deletePost = usePostStore((state) => state.deletePost);
-  const deletePostFromProfile = useUserProfileStore((state) => state.deletePost);
+  const decrementPostsCount = useUserProfileStore((state) => state.deletePost);
 
   const handleDeletePost = async () => {
     if (!window.confirm('Are you sure you want to delete this post?')) return;
@@ -51,7 +51,7 @@ const ProfilePost = ({ post }) => {
       await updateDoc(userRef, { posts: arrayRemove(post.id) });
 
       deletePost(post.id);
-      deletePostFromProfile(post.id);
+      decrementPostsCount(post.id);
       showToast('Success', 'Post deleted successfully', 'success');
     } catch (error) {
       showToast('Error', error.message, 'error');
