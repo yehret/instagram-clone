@@ -20,15 +20,14 @@ import { CreatePostLogo } from '../../assets/constants';
 import { BsFillImageFill } from 'react-icons/bs';
 import { useRef, useState } from 'react';
 import usePreviewImg from '../../hooks/usePreviewImg';
-import useShowToast from './useShowToast';
-import useAuthStore from '../store/authStore';
-import usePostStore from '../store/postStore';
-import useUserProfileStore from '../store/userProfileStore';
-// import { useLocation } from "react-router-dom";
-import { addDoc, arrayUnion, collection, doc, updateDoc } from 'firebase/firestore';
-import { firestore, storage } from '../firebase/firebase';
-import { getDownloadURL, ref, uploadString } from 'firebase/storage';
+import useShowToast from '../../hooks/useShowToast';
+import useAuthStore from '../../store/authStore';
+import usePostStore from '../../store/postStore';
+import useUserProfileStore from '../../store/userProfileStore';
 import { useLocation } from 'react-router-dom';
+import { addDoc, arrayUnion, collection, doc, updateDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadString } from 'firebase/storage';
+import { firestore, storage } from '../../firebase/firebase';
 
 const CreatePost = () => {
   const { onOpen, onClose, isOpen } = useDisclosure();
@@ -154,7 +153,8 @@ const useCreatePost = () => {
 
       newPost.imageURL = downloadURL;
 
-      createPost({ ...newPost, id: postDocRef.id });
+      if (userProfile.uid === authUser.uid) createPost({ ...newPost, id: postDocRef.id });
+
       if (pathname !== '/' && userProfile.uid === authUser.uid)
         addPost({ ...newPost, id: postDocRef.id });
 
