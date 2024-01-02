@@ -4,8 +4,9 @@ import { CommentLogo, NotificationsLogo, UnlikeLogo } from '../../assets/constan
 import usePostComment from '../../hooks/usePostComment';
 import useAuthStore from '../../store/authStore';
 import useLikePost from '../../hooks/useLikePost';
+import { timeAgo } from '../../utils/timeAgo';
 
-const PostFooter = ({ post, username, isProfilePage }) => {
+const PostFooter = ({ post, creatorProfile, isProfilePage }) => {
   const { isCommenting, handlePostComment } = usePostComment();
   const [comment, setComment] = useState('');
   const authUser = useAuthStore((state) => state.user);
@@ -30,19 +31,25 @@ const PostFooter = ({ post, username, isProfilePage }) => {
       <Text fontWeight={600} fontSize={'sm'}>
         {likes} likes
       </Text>
-
+      {isProfilePage && (
+        <Text fontSize={12} color={'gray'}>
+          Posted {timeAgo(post.createdAt)}
+        </Text>
+      )}
       {!isProfilePage && (
         <>
           {' '}
           <Text fontSize={'sm'} fontWeight={700}>
-            {username}{' '}
+            {creatorProfile?.username}{' '}
             <Text as={'span'} fontWeight={400}>
-              Feeling good
+              {post.caption}
             </Text>
           </Text>
-          <Text fontSize={'sm'} color={'gray'}>
-            View all 1,000 comments
-          </Text>
+          {post.comments.length > 0 && (
+            <Text cursor={'pointer'} fontSize={'sm'} color={'gray'}>
+              View all {post.comments.length} comments
+            </Text>
+          )}
         </>
       )}
 
